@@ -1,5 +1,5 @@
 import * as controllerProducts from '../controllers/controllerProducts.js'
-
+import * as middlewareUser from '../middleware/middlewareUser.js'
 
 const routesProducts = (app) => {
     app.get('/productos',controllerProducts.viewProducts)

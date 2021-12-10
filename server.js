@@ -7,6 +7,7 @@ import routesCarts from './src/routes/routesCarts.js'
 import methodOverride from 'method-override'
 import fileUpload from 'express-fileupload'
 import { conectarDB } from './config/db.js'
+import routesUsers from './src/routes/routesUsers.js'
 const app = express()
 
 const __dirname = path.resolve();
@@ -45,6 +46,7 @@ app.set('view engine', 'hbs');
 conectarDB()
 routesProducts(app)
 routesCarts(app)
+routesUsers(app)
 app.listen(3000, () => {
     console.log(`el servidor esta corriendo en : http://localhost:${3000}`)
   })

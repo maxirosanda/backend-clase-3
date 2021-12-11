@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import passport from 'passport'
 import Local from 'passport-local'
 import bcrypt from 'bcrypt'
+import User from '../src/models/users.js'
 
 mongoose.set('useCreateIndex', true)
 const LocalStrategy = Local.Strategy
@@ -13,7 +14,7 @@ const createHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
 }
 
-export const ConectarPassport = () => {
+ const ConectarPassport = () => {
   passport.use('login', new LocalStrategy({ passReqToCallback: true },
     function (req, username, password, done) {
       User.findOne({ username: username },
@@ -28,7 +29,7 @@ export const ConectarPassport = () => {
 
   passport.use('register', new LocalStrategy({ passReqToCallback: true },
     function (req, username, password, done) {
-
+        console.log(username)
       const findOrCreateUser = function () {
         User.findOne({ username: username },
           function (err, user) {
@@ -39,9 +40,6 @@ export const ConectarPassport = () => {
               const newUser = new User()
               newUser.username = username
               newUser.password = createHash(password)
-              newUser.email = req.body.email,
-              newUser.tel = req.body.tel,
-              newUser.address = req.body.address,
               newUser.name=req.body.name 
 
               newUser.save(function (err) {
@@ -69,3 +67,4 @@ export const ConectarPassport = () => {
   })
 }
 
+export default ConectarPassport

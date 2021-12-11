@@ -83,11 +83,12 @@ export default mongoose.model(usersCollection, usersSchema)
 //1)
 //crear en la carpeta config el archivo passport.js
 //dentro del archivo passport.js importar mongoose , bcrypt , passport y passport-local
-//instalar todos los modulos que agregamos que no esten instalados
+//instalar todos los modulos que agregamos (que no esten instalados)
 /*
 npm i bcrypt@5.0.1
 npm i passport@0.4.1
 npm i passport-local@1.0.0
+// importar User del modelo (import User from '../src/models/users.js')
 */
 
 //dentro de passport.js pegar el siguiente codigo de configuracion
@@ -161,4 +162,49 @@ export const ConectarPassport = () => {
 }
 
 */
+// dentro de server importar el archivo passport de la carpeta config
+//iniciar la funcion en el server despues de la conecciona del db (ConectarPassport())
+//agregar al server (despues de la funcion de coneccion de passport) =>
+//app.use(passport.initialize())
+//app.use(passport.session())
 
+// importar e instalar =>
+//import session from 'express-session'
+//import MongoStore from 'connect-mongo'
+//agregar el siguiente codigo en server.js =>
+/*
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+app.use(session({
+  secret: 'secreto',
+  resave: false,
+  saveUninitialized: false,
+
+  store: MongoStore.create({
+    mongoUrl:config.BASE,
+    mongoOptions: advancedOptions,
+    collectionName: 'sessions',
+    ttl: 10 * 60
+  })
+}))
+*/
+//importar passport dentro de routesUser.js (import passport from 'passport')
+//agregar el middleware passport.authenticate('login', { failureRedirect: 'failureLogin' }) a el post del login (el el routesUser.js)
+//agregar el middleware passport.authenticate('register', { failureRedirect: 'failureRegister' }) a el post del registro (el el routesUser.js)
+//importante en la vista register y login cambiar el name "email" por "username" (el el input)
+//importante cambiar en user.js del models el name "email" por "username"
+//modificar el codigo en general para poder usar passport 
+//revisar el codigo para eliminar import innecesarios
+//agregar la funcion para cerrar sesion en el controllerUser.js
+
+/*
+export const logout = async (req, res) => {
+    try {
+      const user = await User.find({ username: req.user.username }).lean()
+      await req.session.destroy(err => {
+        if (err) return err
+        res.status(200).redirect('/ingresar')
+      })
+    } catch (e) { console.log(e) }
+  }
+*/
+//luego agregar la ruta para acceder a la anterior funcion (en el routesUser.js)

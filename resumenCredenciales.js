@@ -131,9 +131,6 @@ export const ConectarPassport = () => {
               const newUser = new User()
               newUser.username = username
               newUser.password = createHash(password)
-              newUser.email = req.body.email,
-              newUser.tel = req.body.tel,
-              newUser.address = req.body.address,
               newUser.name=req.body.name 
 
               newUser.save(function (err) {
